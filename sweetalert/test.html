@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/sweetalert2.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<script src="js/sweetalert2.js"></script>
+</head>
+<body>
+	<main class="container">
+		<h1>test de sweetalert 2</h1>
+		
+		<button class="btn btn-secondary m-2" onclick="conf();">confirm</button>		
+		<br>
+		<button class="btn btn-secondary m-2" onclick="conf2();">confirm 2</button>	
+		<br>	
+		<button class="btn btn-secondary m-2" onclick="conf3();">confirm 3</button>		
+
+	</main>
+	<script>
+		swal({
+		  title: 'Error!',
+		  text: 'Este mesaje se dispara cuando carga la página',
+		  type: 'error',
+		  confirmButtonText: 'Cool'
+		})
+	</script>
+	<script>
+		function conf(){
+			swal({
+			  title: 'Are you sure?',
+			  text: "You won't be able to revert this!",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+			  if (result.value) {
+			    swal(
+			      'Deleted!',
+			      'Your file has been deleted.',
+			      'success'
+			    )
+			  }
+			})
+		}
+	</script>
+	<script>
+			function conf3(){
+				const swalWithBootstrapButtons = swal.mixin({
+				  confirmButtonClass: 'btn btn-success m-1',
+				  cancelButtonClass: 'btn btn-danger m-1',
+				  buttonsStyling: false,
+				})
+
+				swalWithBootstrapButtons({
+				  title: '¿está seguro?',
+				  text: "El producto seleccionado se eliminará",
+				  type: 'warning',
+				  showCancelButton: true,
+				  confirmButtonText: 'Confirmar baja',
+				  cancelButtonText: 'No eliminar',
+				  reverseButtons: false
+				}).then((result) => {
+				  if (result.value) {
+				  	window.location = 'eliminar.php';
+				    /*swalWithBootstrapButtons(
+				      'Deleted!',
+				      'Your file has been deleted.',
+				      'success'
+				    )*/
+				  } else if (
+				    // Read more about handling dismissals
+				    result.dismiss === swal.DismissReason.cancel
+				  ) {
+				  	window.location = 'volver.php';
+				    /*swalWithBootstrapButtons(
+				      'Cancelled',
+				      'Your imaginary file is safe :)',
+				      'error'
+				    )*/
+				  }
+				})
+			}
+	</script>
+	<script>
+			function conf2(){
+				const swalWithBootstrapButtons = swal.mixin({
+				  confirmButtonClass: 'btn btn-success',
+				  cancelButtonClass: 'btn btn-danger',
+				  buttonsStyling: false,
+				})
+
+				swalWithBootstrapButtons({
+				  title: '¿está seguro?',
+				  text: "Se eliminará el producto seleccionado",
+				  type: 'warning',
+				  showCancelButton: true,
+				  confirmButtonText: 'Eliminar',
+				  cancelButtonText: 'No Eliminar',
+				  reverseButtons: true
+				}).then((result) => {
+				  if (result.value) {
+				    swalWithBootstrapButtons(
+				      'Deleted!',
+				      'Your file has been deleted.',
+				      'success'
+				    )
+				  } else if (
+				    // Read more about handling dismissals
+				    result.dismiss === swal.DismissReason.cancel
+				  ) {
+				    swalWithBootstrapButtons(
+				      'Cancelled',
+				      'Your imaginary file is safe :)',
+				      'error'
+				    )
+				  }
+				})
+			}
+	</script>
+
+
+</body>
+</html>
