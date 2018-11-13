@@ -11,16 +11,22 @@
         {% endblock %}
         {% block header %}
             <div class="top-bar">
-                <div class="row">
-                    <div class="top-bar-left">
-                        
-                    </div>
-                    <div class="top-bar-right">
-                        <ul class="menu">
-                            <li><input name="busqueda" id="search-id" type="search" placeholder="Buscar"></li>
-                            <li><button type="button" class="button" action="{{path('listOfProducts')}}">Buscar</button></li>
-                        </ul>
-                    </div>
+                <div class="top-bar-left">
+                    <ul class="dropdown menu" data-dropdown-menu>
+                        <li class="menu-text">EcommArg</li>
+                        <li><a href="{{path('listOfProducts')}}">Productos</a></li>
+                        <li><a href="#0">Acerca de Nosotros</a></li>
+                        <li><a href="#0">Contacto</a></li>
+                        <li><a href="#0">Carrito de Compras</a></li>
+                    </ul>
+                </div>
+                <div class="top-bar-right">
+                    <ul class="menu">
+                        <li><form action="{{path('listOfProducts')}}" method="get" placeholder="Buscar"></li>
+                        <li><input type="text" name="busqueda" class="form-control" placeholder="Buscar"></li>
+                        <li><button type="submit" class="button">Buscar</button></li>                            
+                        <li></form></li>
+                    </ul>
                 </div>
             </div>
         {%endblock%}
@@ -28,7 +34,7 @@
     <body>
         {% block body %}
             
-        {% endblock %}
+        {% endblock %}  
         {% block javascripts %}{% endblock %}
     </body>
 </html>
