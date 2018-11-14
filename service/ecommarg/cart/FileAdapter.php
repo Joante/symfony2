@@ -18,7 +18,6 @@
 		}
 		public function set($key,$value)
 		{
-
 			file_put_contents($this->file, "$key=$value\n", \FILE_APPEND);
 		}
 		public function get($id)
