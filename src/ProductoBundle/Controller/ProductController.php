@@ -17,7 +17,7 @@ class ProductController extends Controller
        $producto = $this->getDoctrine()
 		    	->getRepository('ProductoBundle:Producto')
 		    	->find($id);
-        $this->get('app.cart.adapter');
+
         return $this->render('ProductoBundle:Default:view.html.twig' , [
     																		'producto'=> $producto
     																		]);
@@ -32,9 +32,9 @@ class ProductController extends Controller
         if(null===$producto){
             throw new \Exception("Product not found");
         }
+
         $cartService = $this->get('app.cart');
-        $cartService->add($producto);
-        
+        $cartService->add($producto);        
     }
     /**
      *@Route("/products/cart/view" , name="product_view_cart")
