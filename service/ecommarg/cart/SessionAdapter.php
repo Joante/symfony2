@@ -1,23 +1,44 @@
-<?php
-
+<?php 
+	
 	namespace ecommarg\cart;
-	use Symfony\Component\HttpFoundation\Session\SessionInterface as Session;
-	/**
-	* 
-	*/
-	class SessionAdapter implements SaveAdapterInterface
+	
+	use symfony\component\HttpFoundation\Session\SessionInterface;
+	use symfony\component\HttpFoundation\Session\Storage\MetadataBag;
+	use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+	
+	Class SessionAdapter implements SaveAdapterInterface
 	{
+		const BAG_NAME = 'ecommarg_cart_session';
 		private $session;
-		public function __construct(Session $session)
+		private $bagName = null;
+		
+		public function __construct(SessionInterface $session, $key = null)
 		{
-			$this->session=$session; 
+			$bagName = null === $key ? self::BAG_NAME : $key;
+			$bag = new AttributeBag($bagName);
+			$bag->setName($bagName);
+			$this->session=$session;
+			$this->session->registerBag($bag);
+			$this->bagName = $bagName;
 		}
 		public function set($key,$value)
 		{
-			$this -> session->set($key,$value);
+			$this->session
+			->getBag($this->bagName)
+			->set($key, $value);
 		}
-		public function get($id)
+		public function get($key)
 		{
-			return $this->session->get($id);
+			$this->session
+			->getBag($this->bagName)
+			->get($key);
+		}
+		public function getAll()
+		{
+			return $this->session->getBag($this->bagName)->all();
+		}
+		public function replace($array)
+		{
+			return $this->session->replace($array);
 		}
 	}

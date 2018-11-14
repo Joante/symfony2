@@ -32,4 +32,5 @@ class DefaultController extends Controller
         }
     	return $this->render('ProductoBundle:Default:index.html.twig' ,['productos'=> $productos]);
     }
+    
 }
