@@ -17,7 +17,7 @@ services:
 
     cart.adapter.file:
        class: ecommarg\cart\FileAdapter
-       arguments: ['C:\Nueva carpeta']
+       arguments: ['E:']
 
     app.cart:
        class: ecommarg\cart\Cart

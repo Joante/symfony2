@@ -5,7 +5,7 @@
 	Interface CartInterface
 	{
 		
-		public function add(Product $p);
+		public function add(Product $p,$quantity=1);
 		public function get($id);
 		public function getAll();
 		//public function replace($array);

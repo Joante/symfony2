@@ -19,20 +19,35 @@
 						];
 			return $adapters;
 		}
-		public function add(Product $producto){
+		public function add(Product $producto,  $quantity = 1){
+			$quantity=(int)$quantity;
+			if($quantity<=0)
+			{
+				throw new \Exception("Cantidad invalida");
+				
+			}
 			$id=$producto->getId();
 			foreach ( $this-> adapters as $adapter) {	
 				$adapter->set(
 					$id,
-					json_encode($producto)
+					json_encode(
+								[
+								  'quantity' => $quantity,
+								  'producto' => $producto
+								])
 				);
 			}
 		}
 		public function get($id){
+
 			return $this-> adapters['session']->get($id);
 		}
 		public function getAll(){
-			return $this-> adapters['session']->getAll();
+			$all = $this-> adapters['session']->getAll();
+			foreach ($all as &$item) {
+				$item = json_decode(($item));
+			}
+			return $all; 
 		}
 		/*public function replace($array){
 			return $this->adapters['session']->replace($array);

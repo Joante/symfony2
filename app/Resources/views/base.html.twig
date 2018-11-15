@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.2.3/motion-ui.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-prototype.min.css">
         <link href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'>
+        <script src="jquery.js"></script>
         {% endblock %}
         {% block header %}
             <div class="top-bar">
@@ -17,7 +18,7 @@
                         <li><a href="{{path('listOfProducts')}}">Productos</a></li>
                         <li><a href="#0">Acerca de Nosotros</a></li>
                         <li><a href="#0">Contacto</a></li>
-                        <li><a href="#0">Carrito de Compras</a></li>
+                        <li><a href="{{path('product_view_cart')}}">Carrito de Compras</a></li>
                     </ul>
                 </div>
                 <div class="top-bar-right">
@@ -30,6 +31,9 @@
                 </div>
             </div>
         {%endblock%}
+        {% block jquery %}
+        <script  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        {% endblock %}
     </head>
     <body>
         {% block body %}
