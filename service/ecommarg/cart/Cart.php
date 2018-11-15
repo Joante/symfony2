@@ -7,25 +7,34 @@
 		
 	Class Cart implements CartInterface{
 			
-		private	$adapter;
-		public function __construct (SaveAdapter $adapter){
-			$this->adapter=$adapter;
+		private	$adapters;
+		public function __construct (SaveAdapter $session, SaveAdapter $file){
+			$this-> adapters = $this->addAdapter($session,$file);
+		}
+		public function addAdapter(SaveAdapter $session,SaveAdapter $file)
+		{
+			$adapters = [
+						"session" => $session,
+						"file" => $file
+						];
+			return $adapters;
 		}
 		public function add(Product $producto){
 			$id=$producto->getId();
-
-			$this->adapter->set(
-				$id,
-				json_encode($producto)
-			);
+			foreach ( $this-> adapters as $adapter) {	
+				$adapter->set(
+					$id,
+					json_encode($producto)
+				);
+			}
 		}
 		public function get($id){
-			return $this->adapter->get($id);
+			return $this-> adapters['session']->get($id);
 		}
 		public function getAll(){
-			return $this->adapter->getAll();
+			return $this-> adapters['session']->getAll();
 		}
-		public function replace($array){
-			return $this->adapter->replace($array);
-		}
+		/*public function replace($array){
+			return $this->adapters['session']->replace($array);
+		}*/
 	}

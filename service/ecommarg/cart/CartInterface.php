@@ -8,5 +8,5 @@
 		public function add(Product $p);
 		public function get($id);
 		public function getAll();
-		public function replace($array);
+		//public function replace($array);
 	}

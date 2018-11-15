@@ -17,10 +17,10 @@ services:
 
     cart.adapter.file:
        class: ecommarg\cart\FileAdapter
-       arguments: ['E:']
+       arguments: ['C:\Nueva carpeta']
 
     app.cart:
        class: ecommarg\cart\Cart
-       arguments: ['@cart.adapter.file']
+       arguments: ['@cart.adapter.session','@cart.adapter.file']
 
    
