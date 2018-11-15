@@ -5,6 +5,7 @@ namespace ProductoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class ProductController extends Controller
@@ -20,8 +21,9 @@ class ProductController extends Controller
 		    	->find($id);
 
         return $this->render('ProductoBundle:Default:view.html.twig' , [
-    																		'producto'=> $producto
-    																		]);
+            'producto'=> $producto,
+            'cart_config' => $this->container->getParameter('cart_config')
+        ]);
     }
     /**
      *@Route("/products/cart/add" , name="product_add_cart", methods="POST")
@@ -29,16 +31,28 @@ class ProductController extends Controller
     public function addToCartAction(Request $r){
         $id=$r->get('id');
         $quantity=$r->get('quantity');
+        $requestType = strtolower($r->headers->get('X-Requested-with'));
+        $isAjax ='xmlhttprequest'===$requestType;
         $producto= $this->getDoctrine()
         ->getRepository('ProductoBundle:Producto')
         ->find($id);
+        
         if(null===$producto){
             throw new \Exception("Product not found");
         }
-
         $cartService = $this->get('app.cart');
         $cartService->add($producto);
-        return $this->viewCartAction();    
+        if(true===$isAjax)
+        {
+            $response= new Response();
+            $response->headers->add([
+                                        'Content-Type'=>'application/Json'
+                                    ]);
+            $response->setContent(json_encode($cartService->getAll()));
+            return $response;
+        }
+        return $this->redirect(
+            $this->generateUrl('product_view_cart'));
     }
     /**
      *@Route("/products/cart/view" , name="product_view_cart")

@@ -8,14 +8,13 @@
 	Class Cart implements CartInterface{
 			
 		private	$adapters;
-		public function __construct (SaveAdapter $session, SaveAdapter $file){
-			$this-> adapters = $this->addAdapter($session,$file);
+		public function __construct (SaveAdapter $session){
+			$this-> adapters = $this->addAdapter($session);
 		}
-		public function addAdapter(SaveAdapter $session,SaveAdapter $file)
+		public function addAdapter(SaveAdapter $session)
 		{
 			$adapters = [
-						"session" => $session,
-						"file" => $file
+						"session" => $session
 						];
 			return $adapters;
 		}
