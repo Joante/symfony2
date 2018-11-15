@@ -1,9 +1,0 @@
-<script>
-    $(document).ready (function (){
-        $('#addToCart').on('submit',function(e){
-            e.preventDefault();
-            alert('Enviar peticion XHR al carrito');
-            $.post({{path('product_add_cart')}},$(this).serialize)
-        });
-    });
-    </script>
