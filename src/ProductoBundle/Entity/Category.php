@@ -3,7 +3,8 @@
 namespace ProductoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Command\Collections\ArrayColection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category
@@ -11,7 +12,7 @@ use Doctrine\Command\Collections\ArrayColection;
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="ProductoBundle\Repository\CategoryRepository")
  */
-class Category
+class Category implements \JsonSerializable
 {
     /**
      * @var int
@@ -24,7 +25,7 @@ class Category
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
@@ -32,13 +33,13 @@ class Category
     /**
      * @var ArrayColection
      * @ORM\ManyToMany(targetEntity="Producto" , mappedBy="categorias")
-     * @ORM\JoinTable(name="product_categoy")
+     * @ORM\JoinTable(name="producto_categoy")
      */
     private $products=null;
 
     public function __construct()
     {
-        $this->products = new ArrayColection();
+        $this->products = new ArrayCollection();
     }
     public function getProducts()
     {
@@ -74,6 +75,17 @@ class Category
      * @return string
      */
     public function getName()
+    {
+        return $this->name;
+    }
+    public function jsonSerialize()
+    {
+        return [
+                'id' => $this->getId(),
+                'name' => $this->getName()
+                ];
+    }
+    public function __toString()
     {
         return $this->name;
     }
