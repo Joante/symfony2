@@ -43,21 +43,22 @@ class ProductApiController extends Controller
             $em->persist($producto);
             $em->flush();
             $response->setContent(json_encode($producto));
-        }else
-        {
-            $errorsIterator = $form->getErrors();
-        
-            if(count($errorsIterator)){
-                $config = $form->getConfig();
-                $name   = $form->getName();
-                $label  = $config->getOption('label');
-            }
-
-            //$formErrorsParser = $this->get('formErrorsParser');
-            //$errors = $formErrorsParser->parseErrors($form);
-            $response->setStatusCode(400);
-            $response->setContent(json_encode($errors));
+            return $response;
         }
+
+
+        $errorsIterator = $form->getErrors();
+        
+        if(count($errorsIterator)){
+            $config = $form->getConfig();
+            $name   = $form->getName();
+            $label  = $config->getOption('label');
+        }
+
+        //$formErrorsParser = $this->get('formErrorsParser');
+        //$errors = $formErrorsParser->parseErrors($form);
+        $response->setStatusCode(400);
+        $response->setContent(json_encode($errors));
         
         return $response;
     }
