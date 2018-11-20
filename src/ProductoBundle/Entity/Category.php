@@ -32,6 +32,7 @@ class Category implements \JsonSerializable
 
     /**
      * @var ArrayColection
+     * 
      * @ORM\ManyToMany(targetEntity="Producto" , mappedBy="categorias")
      * @ORM\JoinTable(name="producto_categoy")
      */

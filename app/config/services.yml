@@ -1,7 +1,7 @@
 # Learn more about services, parameters and containers at
 # https://symfony.com/doc/current/service_container.html
 parameters:
-    #parameter_name: value
+    formErrors.class: ecommarg\FormErrorsParser
 
 services:
     #service_name:
@@ -22,5 +22,17 @@ services:
     app.cart:
        class: ecommarg\cart\Cart
        arguments: ['@cart.adapter.session']
+
+    formErrorsParser:
+        class: "%formErrors.class%"
+        arguments:
+            - '@translator'
+    
+    #ex3v.twig.all_form_errors_extension:
+    #    class: Ex3v\FormErrorsBundle\Twig\FormErrorsExtension
+     #   arguments:
+    #        - '@formErrorsParser'
+     #   tags:
+    #        - { name: twig.extension }
 
    

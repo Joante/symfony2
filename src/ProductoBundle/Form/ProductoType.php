@@ -5,6 +5,10 @@ namespace ProductoBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ProductoType extends AbstractType
 {
@@ -13,7 +17,18 @@ class ProductoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('price')->add('stock')->add('categorias');
+        $builder->add('categorias');
+        $builder->add('name', TextType::class, array('required' => true,
+            'constraints' => new NotBlank()
+        ));
+        $builder->add('price', IntegerType::class ,array(
+            'required' => true,
+            'constraints' => new NotBlank()
+        ));
+        $builder->add('stock', IntegerType::class, array(
+            'required' => true,
+            'constraints' => new NotBlank()
+        ));
     }/**
      * {@inheritdoc}
      */

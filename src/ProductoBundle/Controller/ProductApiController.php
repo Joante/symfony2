@@ -37,14 +37,28 @@ class ProductApiController extends Controller
         $form->handleRequest($request);
         $response= new Response();
         $response->headers->add(['Content-Type'=>'application/json']);
-
-
+        $errors=$form->getErrors();
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($producto);
             $em->flush();
+            $response->setContent(json_encode($producto));
+        }else
+        {
+            $errorsIterator = $form->getErrors();
+        
+            if(count($errorsIterator)){
+                $config = $form->getConfig();
+                $name   = $form->getName();
+                $label  = $config->getOption('label');
+            }
+
+            //$formErrorsParser = $this->get('formErrorsParser');
+            //$errors = $formErrorsParser->parseErrors($form);
+            $response->setStatusCode(400);
+            $response->setContent(json_encode($errors));
         }
-        $response->setContent(json_encode($producto));
+        
         return $response;
     }
 }
