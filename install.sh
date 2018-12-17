@@ -1,6 +1,6 @@
 #1/bin/bash
-./composer install
-./app/console doctrine:database:drop --force
-./app/console doctrine:database:create
-./app/console doctrine:schema:update --force
-./app/console cache:clear 
+/var/www/html/joan/composer install
+/var/www/html/app/console doctrine:database:drop --force
+/var/www/html/app/console doctrine:database:create
+/var/www/html/app/console doctrine:schema:update --force
+/var/www/html/app/console cache:clear 
